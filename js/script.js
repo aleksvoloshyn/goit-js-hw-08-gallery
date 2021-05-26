@@ -6,6 +6,7 @@ const galleryListEl = document.querySelector('ul.gallery');
 //modal window
 const modalWindowEl = document.getElementsByClassName('lightbox');
 
+
 //создаем разметку шаблонной строкой
 function createPicturesMarkup(pics) {
     return pics.map(({ preview}) => {
@@ -29,7 +30,5 @@ function addPictureElementsToList(item) {
 
 addPictureElementsToList(galleryItems);
 
-   
 
-
-
+const picturesEl = document.querySelectorAll('.gallery__image')
