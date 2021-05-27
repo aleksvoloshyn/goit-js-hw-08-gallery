@@ -1,7 +1,7 @@
 import galleryItems from './gallery-items.js';
 
 const galleryListEl = document.querySelector('ul.js-gallery');
-const modalWindowEl = document.getElementsByClassName('lightbox');
+const modalWindowEl = document.querySelector('.js-lightbox');
 const modalWindowCloseBtn = document.querySelector(
   '[data-action = close-lightbox]',
 );
@@ -31,3 +31,13 @@ function addPictureElementsToList(item) {
   galleryListEl.insertAdjacentHTML('beforeend', createPicturesMarkup(item));
 }
 addPictureElementsToList(galleryItems);
+
+galleryListEl.addEventListener('click', onImageGalleryClick);
+
+function onImageGalleryClick(ev) {
+  ev.preventDefault();
+  if (ev.target.nodeName !== 'IMG') {
+    return;
+  }
+  modalWindowEl.classList.toggle('is-open');
+}
