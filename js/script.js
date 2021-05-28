@@ -8,6 +8,7 @@ const modalWindowCloseBtn = document.querySelector(
 const modalLightBoxOverlayEl = document.querySelector('.lightbox__overlay');
 const modalLightBoxImageEl = document.querySelector('.lightbox__image');
 
+// функция создание разметки по шаблону
 function createPicturesMarkup(pics) {
   return pics
     .map(({ preview }) => {
@@ -34,10 +35,37 @@ addPictureElementsToList(galleryItems);
 
 galleryListEl.addEventListener('click', onImageGalleryClick);
 
+/** Функция клика по превью картинки **/
 function onImageGalleryClick(ev) {
   ev.preventDefault();
   if (ev.target.nodeName !== 'IMG') {
     return;
   }
-  modalWindowEl.classList.toggle('is-open');
+
+  toggleClassOnModal(modalWindowEl);
+
+  const galImageEl = ev.target;
+
+  galleryItems.map((el, ind) => {
+    if (galImageEl.src === el.preview) {
+      setAtributesToImagesModal(el);
+    }
+  });
 }
+
+//функция подстановки атррибутов картинке в модальном окне
+function setAtributesToImagesModal(img) {
+  modalLightBoxImageEl.src = img.original;
+  modalLightBoxImageEl.alt = img.description;
+}
+
+//Функция переключения класса is-open
+function toggleClassOnModal(element) {
+  element.classList.toggle('is-open');
+}
+
+//нажатие на close button
+modalWindowCloseBtn.addEventListener('click', () => {
+  modalWindowEl.classList.toggle('is-open');
+  setAtributesToImagesModal('');
+});
